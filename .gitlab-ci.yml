@@ -5,6 +5,9 @@ before_script:
   - usermod -a -G fuse $(whoami)
 
 linux_build:
+  artifacts:
+    paths:
+    - GOGLauncher-x86_64.AppImage
   script:
     - qmake -config release goglauncher.pro
     - make -j$(nproc)
