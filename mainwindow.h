@@ -21,8 +21,9 @@ private:
     void refreshGameList();
 
 private slots:
-    void refreshGameInfo(QModelIndex);
-    void launchGame(QModelIndex);
+    void refreshGameInfo();
+    void launchGame();
+    void uninstallGame();
     void gameClosed(int);
 };
 

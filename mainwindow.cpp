@@ -15,8 +15,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowTitle("GOGLauncher " + VERSION);
 
-    connect(ui->gameList, SIGNAL(clicked(QModelIndex)), this, SLOT(refreshGameInfo(QModelIndex)));
-    connect(ui->gameList, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(launchGame(QModelIndex)));
+    connect(ui->gameList, SIGNAL(itemSelectionChanged()), this, SLOT(refreshGameInfo()));
+    connect(ui->gameList, SIGNAL(doubleClicked()), this, SLOT(launchGame()));
+    connect(ui->launch, SIGNAL(clicked()), this, SLOT(launchGame()));
+    connect(ui->uninstall, SIGNAL(clicked()), this, SLOT(uninstallGame()));
 
     this->refreshGameList();
 }
@@ -43,9 +45,9 @@ void MainWindow::refreshGameList()
     }
 }
 
-void MainWindow::refreshGameInfo(QModelIndex index)
+void MainWindow::refreshGameInfo()
 {
-    QString gameName = index.data().toString();
+    QString gameName = ui->gameList->currentItem()->text();
 
     QPixmap pix;
     pix.load(QDir::homePath() + QString("/GOG Games/") + gameName + QString("/support/icon.png"));
@@ -53,16 +55,25 @@ void MainWindow::refreshGameInfo(QModelIndex index)
     ui->label_gameIcon->setPixmap(pix);
 }
 
-void MainWindow::launchGame(QModelIndex index)
+void MainWindow::launchGame()
 {
     setWindowState(Qt::WindowMinimized);
 
-    QString gameName = index.data().toString();
+    QString gameName = ui->gameList->currentItem()->text();
 
     QProcess *process = new QProcess(this);
     connect(process, SIGNAL(finished(int)), this, SLOT(gameClosed(int)));
     process->setWorkingDirectory(QString(QDir::homePath() + "/GOG Games/") + gameName);
     process->start(QString("bash"), QStringList() << QDir::homePath() + QString("/GOG Games/") + gameName + QString("/start.sh"));
+}
+
+void MainWindow::uninstallGame()
+{
+    QString gameName = ui->gameList->currentItem()->text();
+
+    QProcess *process = new QProcess(this);
+    process->setWorkingDirectory(QString(QDir::homePath() + "/GOG Games/") + gameName);
+    process->start(QString("bash"), QStringList() << QDir::homePath() + QString("/GOG Games/") + gameName + QString("/uninstall-") + gameName + QString(".sh"));
 }
 
 void MainWindow::gameClosed(int exitCode)
