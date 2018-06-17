@@ -15,8 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowTitle("GOGLauncher " + VERSION);
 
+    connect(ui->gameList, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(launchGame()));
     connect(ui->gameList, SIGNAL(itemSelectionChanged()), this, SLOT(refreshGameInfo()));
-    connect(ui->gameList, SIGNAL(doubleClicked()), this, SLOT(launchGame()));
     connect(ui->launch, SIGNAL(clicked()), this, SLOT(launchGame()));
     connect(ui->uninstall, SIGNAL(clicked()), this, SLOT(uninstallGame()));
 
