@@ -66,6 +66,22 @@ void MainWindow::refreshGameInfo()
     pix.load(QDir::homePath() + QString("/GOG Games/") + gameName + QString("/support/icon.png"));
 
     ui->label_gameIcon->setPixmap(pix);
+
+    QFile gameinfo(QDir::homePath() + QString("/GOG Games/") + gameName + QString("/gameinfo"));
+
+    if (!gameinfo.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        ui->version->setText(QString());
+        return;
+    }
+
+    gameinfo.readLine();
+
+    QString version = gameinfo.readLine();
+    version.append(gameinfo.readLine());
+
+    ui->version->setText(version);
+
+    gameinfo.close();
 }
 
 void MainWindow::launchGame()
