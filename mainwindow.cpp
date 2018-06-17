@@ -55,6 +55,8 @@ void MainWindow::refreshGameInfo(QModelIndex index)
 
 void MainWindow::launchGame(QModelIndex index)
 {
+    setWindowState(Qt::WindowMinimized);
+
     QString gameName = index.data().toString();
 
     QProcess *process = new QProcess(this);
@@ -65,6 +67,8 @@ void MainWindow::launchGame(QModelIndex index)
 
 void MainWindow::gameClosed(int exitCode)
 {
+    setWindowState(Qt::WindowNoState);
+
     if (exitCode) {
         QMessageBox::information(this, QString("Game closed"), QString("The game exited with an error code ") + QString::number(exitCode));
     }
