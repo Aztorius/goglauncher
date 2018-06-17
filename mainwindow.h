@@ -25,6 +25,8 @@ private slots:
     void launchGame();
     void uninstallGame();
     void gameClosed(int);
+    void aboutQt();
+    void aboutGOGLauncher();
 };
 
 #endif // MAINWINDOW_H

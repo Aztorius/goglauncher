@@ -20,12 +20,25 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->launch, SIGNAL(clicked()), this, SLOT(launchGame()));
     connect(ui->uninstall, SIGNAL(clicked()), this, SLOT(uninstallGame()));
 
+    connect(ui->aboutQt, SIGNAL(triggered()), this, SLOT(aboutQt()));
+    connect(ui->aboutGOGLauncher, SIGNAL(triggered()), this, SLOT(aboutGOGLauncher()));
+
     this->refreshGameList();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::aboutQt()
+{
+    QMessageBox::aboutQt(this);
+}
+
+void MainWindow::aboutGOGLauncher()
+{
+    QMessageBox::about(this, QString("About GOGLauncher"), QString("GOGLauncher is an open source software under the GNU-GPLv3.\nThis is an independant project.\nFeel free to contribute at https://gitlab.com/Aztorius/GOGLauncher"));
 }
 
 void MainWindow::refreshGameList()
