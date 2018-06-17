@@ -28,6 +28,11 @@ unix {
     }
 
     target.path = $$PREFIX/bin
+
+    shortcut.files = goglauncher.desktop
+    shortcut.path = $$PREFIX/share/applications/
+
+    INSTALLS += shortcut
 }
 
 INSTALLS += target
