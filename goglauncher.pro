@@ -27,7 +27,7 @@ unix {
         PREFIX = /usr/local
     }
 
-    TARGET.path = $$PREFIX/bin
+    target.path = $$PREFIX/bin
 }
 
 INSTALLS += target
