@@ -8,4 +8,4 @@ Path=/usr/local/bin/goglauncher
 Exec=goglauncher
 Icon=
 Terminal=false
-Categories=Games;
+Categories=Game;
