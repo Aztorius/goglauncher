@@ -6,6 +6,6 @@ Name=GOGLauncher
 Comment=GOG Games Launcher
 Path=/usr/local/bin/goglauncher
 Exec=goglauncher
-Icon=
+Icon=goglauncher
 Terminal=false
 Categories=Game;

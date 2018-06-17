@@ -32,7 +32,11 @@ unix {
     shortcut.files = goglauncher.desktop
     shortcut.path = $$PREFIX/share/applications/
 
+    desktopicon.files = goglauncher.png
+    desktopicon.path = $$PREFIX/share/icons/hicolor/256x256/apps/
+
     INSTALLS += shortcut
+    INSTALLS += desktopicon
 }
 
 INSTALLS += target
