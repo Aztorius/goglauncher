@@ -1,0 +1,16 @@
+before_script:
+  - uname -a
+  - apt-get update && apt-get install -y qt5-default qttools5-dev-tools qtbase5-dev qt5-qmake fuse
+  - groupadd fuse
+  - usermod -a -G fuse $(whoami)
+
+linux_build:
+  script:
+    - qmake -config release goglauncher.pro
+    - make -j$(nproc)
+    - make INSTALL_ROOT=appdir -j$(nproc) install
+    - find appdir/
+    - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+    - chmod a+x linuxdeployqt*.AppImage
+    - ./linuxdeployqt*.AppImage ./appdir/usr/local/share/applications/*.desktop -bundle-non-qt-libs
+    - ./linuxdeployqt*.AppImage ./appdir/usr/local/share/applications/*.desktop -appimage
